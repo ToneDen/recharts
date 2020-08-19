@@ -1217,11 +1217,30 @@ const generateCategoricalChart = ({
             }),
           });
         } else if (!_.isNil(data.activeTooltipIndex)) {
-          const { chartX, chartY, activeTooltipIndex } = data;
+          const { chartX, chartY } = data;
           const { offset, tooltipTicks } = this.state;
-          if (!offset) {
+
+          // Set activeTooltipIndex to the index with the same value as data.activeLabel  
+          var activeTooltipIndex;
+
+          // Set activeTooltipIndex to the index with the same value as data.activeLabel  
+          tooltipTicks.forEach(({value}, index) => {
+            if(value === data.activeLabel) {
+              activeTooltipIndex = index;
+
+              data = {
+                  ...data,
+                  activeTooltipIndex: index
+              };
+
+              return;
+            }
+          })
+          
+          if (!activeTooltipIndex || !offset) {
             return;
           }
+
           const viewBox: ViewBox = { ...offset, x: offset.left, y: offset.top };
           // When a categotical chart is combined with another chart, the value of chartX
           // and chartY may beyond the boundaries.
