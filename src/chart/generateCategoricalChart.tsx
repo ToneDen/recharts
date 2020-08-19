@@ -1221,23 +1221,16 @@ const generateCategoricalChart = ({
           const { offset, tooltipTicks } = this.state;
 
           // Set activeTooltipIndex to the index with the same value as data.activeLabel  
-          var activeTooltipIndex;
+          var activeTooltipIndex = tooltipTicks.findIndex(({ value }, index) => value === data.activeLabel);
 
-          // Set activeTooltipIndex to the index with the same value as data.activeLabel  
-          tooltipTicks.forEach(({value}, index) => {
-            if(value === data.activeLabel) {
-              activeTooltipIndex = index;
-
+          if(activeTooltipIndex !== -1) {
               data = {
                   ...data,
-                  activeTooltipIndex: index
+                  activeTooltipIndex
               };
-
-              return;
-            }
-          })
+          }
           
-          if (!activeTooltipIndex || !offset) {
+          if (activeTooltipIndex === -1 || !offset) {
             return;
           }
 
