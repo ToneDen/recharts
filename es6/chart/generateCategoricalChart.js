@@ -351,7 +351,6 @@ var generateCategoricalChart = function generateCategoricalChart(_ref) {
               var value = _ref4.value;
               return value === data.activeLabel;
             });
-            console.log(data.activeLabel, _this.uniqueChartId, activeTooltipIndex);
 
             if (activeTooltipIndex !== -1) {
               data = _objectSpread({}, data, {
